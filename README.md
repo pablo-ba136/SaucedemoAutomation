@@ -1,4 +1,4 @@
 # SaucedemoAutomation
-Selenium + Java + TestNG
+Automatización de pruebas con Selenium + Java + TestNG
 
 (Proyecto en proceso)
