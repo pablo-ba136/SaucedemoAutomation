@@ -14,55 +14,56 @@ public class BasePage {
 	protected WebDriver driver;
 	protected Waits waits;
 
-	// Constructor que heredarán todas las páginas de tu proyecto
+	// Constructor que heredan las páginas del proyecto
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
 		this.waits = new Waits(driver);
 	}
 
-	// Abre una URL específica en el navegador
+	// Abre una URL en el navegador
 	public void navigateTo(String url) {
 		driver.get(url);
 	}
 
-	// Busca un elemento asegurando primero que sea visible
+	// Busca un elemento
 	protected WebElement findElement(By locator) {
 		return waits.waitForElement(locator);
 	}
 
-	// Busca una lista de elementos asegurando que estén presentes
+	// Busca una lista de elementos
 	protected List<WebElement> findElements(By locator) {
 		return waits.waitForListOfElements(locator);
 	}
 
-	// Envuelve la acción de escribir texto (Limpia el campo antes de escribir)
+	// Escribe un texto
 	protected void writeText(By locator, String text) {
 		WebElement element = findElement(locator);
 		element.clear();
 		element.sendKeys(text);
 	}
 
-	// Envuelve la acción de hacer clic asegurando que el elemento sea interactuable
+	// Hace clic usando localizador
 	protected void click(By locator) {
 		waits.waitForElementToBeClickable(locator).click();
 	}
 
-	// Envuelve la acción de hacer clic sobre un WebElement ya localizado
+	// Hace clic usando WebElement
 	protected void click(WebElement element) {
 		waits.waitForElementToBeClickable(element).click();
 	}
 
-	// Obtiene el texto de un elemento visible
+	// Obtiene el texto usando localizador
 	protected String getText(By locator) {
 		return findElement(locator).getText();
 	}
 	
+	// Obtiene el texto usando WebElement
 	public String getText(WebElement element) {
 		return element.getText();
 
 	}
 
-	// Verifica si un elemento está desplegado en la pantalla
+	// Verifica si un elemento está en la pantalla
 	protected boolean isDisplayed(By locator) {
 		try {
 			return findElement(locator).isDisplayed();
@@ -81,12 +82,14 @@ public class BasePage {
 		return driver.getCurrentUrl();
 	}
 	
+	//Obtiene el elemento de una lista desplegable usando texto
 	public String selectDropdownList(By locator, String text) { 
 		Select selectList = new Select(findElement(locator));
 		selectList.selectByVisibleText(text);
 		return getText(selectList.getFirstSelectedOption());
 	}
 	
+	//Obtiene el elemento de una lista desplegable usando value
 	protected void selectByValue(By locator, String value) {
 
 	    Select select = new Select(findElement(locator));

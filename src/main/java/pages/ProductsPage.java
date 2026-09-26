@@ -19,6 +19,7 @@ public class ProductsPage extends BasePage {
 
 	private By sortDropdownList = By.cssSelector("select[data-test='product-sort-container']");
 	private By itemPrices = By.className("inventory_item_price");
+	private By itemNames = By.className("inventory_item_name");
 
 	public ProductsPage(WebDriver driver) {
 		super(driver);
@@ -74,6 +75,16 @@ public class ProductsPage extends BasePage {
 		}
 		return prices;
 
+	}
+	
+	public List<String> getNames() {
+		List<String> names = new ArrayList<>();
+		List<WebElement> items = findElements(itemNames);
+		for (int i = 0; i < items.size(); i++) {
+			names.add(items.get(i).getText());
+		}
+		
+		return names;
 	}
 
 

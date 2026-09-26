@@ -14,7 +14,7 @@ import base.BaseTest;
 public class CartTests extends BaseTest {
 	@Test
 	public void test() {
-		// 1. Iniciamos en la LoginPage (BaseTest ya abrió la URL en el setup)
+		// 1. Iniciamos en la LoginPage 
 		LoginPage loginPage = new LoginPage(driver);
 
 		// 2. Nos logueamos y obtenemos automáticamente el acceso a la pantalla del
@@ -26,15 +26,14 @@ public class CartTests extends BaseTest {
 		/*if (productsPage.isbackpackRemoveButtonButtonDisplayed()) {
 			productsPage.removeBackpackToCart();
 		}*/
-		// 4. Añadimos un producto e interactuamos con el catálogo
+		// 3. Añadimos un producto e interactuamos con el catálogo
 		productsPage.addBackpackToCart();
 		assertEquals(productsPage.getCartItemsCount(), "1", "El contador del carrito no se actualizó.");
 
-		// 5. Viajamos al carrito de compras
+		// 4. Viajamos al carrito de compras
 		CartPage cartPage = productsPage.goToCart();
 
-		// 6. Validamos la aserción final del negocio del carrito de manera
-		// independiente
+		// 5. Validamos el assertion final del carrito
 		String productoEsperado = "Sauce Labs Backpack";
 		assertEquals(cartPage.getFirstItemName(), productoEsperado, "El producto en el carrito no es el correcto.");
 

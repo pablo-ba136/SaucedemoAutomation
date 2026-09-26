@@ -13,14 +13,13 @@ public class LoginPage extends BasePage {
 	private By errorMessage = By.cssSelector("[data-test='error']");
 	public LoginPage(WebDriver driver) {
 		super(driver);
-		// TODO Auto-generated constructor stub
 	}
 
 	public ProductsPage login(String user, String password) {
 		writeText(usernameInput, user);
 		writeText(passwordInput, password);
 		click(loginButton);
-		return new ProductsPage(driver); // Retorna la página del catálogo de productos
+		return new ProductsPage(driver); // Devuelve la página del catálogo de productos
 	}
 
 	public boolean isMenuButtonDisplayed() {
@@ -32,6 +31,6 @@ public class LoginPage extends BasePage {
 	}
 
 	public String getErrorMessageText() {
-		return getText(errorMessage); // Asumiendo que tu BasePage tiene un método getText
+		return getText(errorMessage); 
 	}
 }

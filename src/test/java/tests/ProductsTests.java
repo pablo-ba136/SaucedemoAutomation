@@ -19,11 +19,12 @@ public class ProductsTests extends BaseTest {
 
 	@BeforeMethod
 	public void loginSetup() {
-		// 1. Iniciamos en la LoginPage (BaseTest ya abrió la URL en el setup)
+		// Iniciamos en la LoginPage (BaseTest ya abrió la URL en el setup)
 		LoginPage loginPage = new LoginPage(driver);
 
-		// 2. Nos logueamos y obtenemos automáticamente el acceso a la pantalla del
+		// Nos logueamos y obtenemos automáticamente el acceso a la pantalla del
 		// catálogo
+
 		productsPage = loginPage.login(Config.VALID_USER, Config.VALID_PASSWORD);
 	}
 
@@ -38,7 +39,7 @@ public class ProductsTests extends BaseTest {
 
 		assertEquals(actualPrices, expectedPrices, "Los productos no están ordenados de menor a mayor precio");
 	}
-	
+
 	@Test
 	public void priceHighToLow() {
 
@@ -50,4 +51,29 @@ public class ProductsTests extends BaseTest {
 
 		assertEquals(actualPrices, expectedPrices, "Los productos no están ordenados de mayor a menor precio");
 	}
+
+	@Test
+	public void nameAToZ() {
+
+		productsPage.sortNameAToZ();
+		List<String> actualNames = productsPage.getNames();
+
+		List<String> expectedNames = new ArrayList<>(actualNames);
+		Collections.sort(expectedNames);
+
+		assertEquals(actualNames, expectedNames, "Los productos no están ordenados alfabéticamente");
+	}
+
+	@Test
+	public void nameZToA() {
+
+		productsPage.sortNameZToA();
+		List<String> actualNames = productsPage.getNames();
+
+		List<String> expectedNames = new ArrayList<>(actualNames);
+		Collections.sort(expectedNames, Collections.reverseOrder());
+
+		assertEquals(actualNames, expectedNames, "Los productos no están ordenados alfabéticamente de forma inversa");
+	}
+
 }

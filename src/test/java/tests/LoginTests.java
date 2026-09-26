@@ -18,19 +18,19 @@ import java.util.Map;
 
 public class LoginTests extends BaseTest {
 
-	// 🟢 DataProvider para Login Exitoso
+	// 🟢 DataProvider para Login con datos correctos
 	@DataProvider(name = "userData")
 	public Object[][] getUserData() throws IOException {
 		return readJsonData("src/test/resources/testdata/users.json");
 	}
 
-	// 🟢 DataProvider para Login Fallido
+	// 🟢 DataProvider para hacer Login con datos erróneos
 	@DataProvider(name = "invalidUserData")
 	public Object[][] getInvalidUserData() throws IOException {
 		return readJsonData("src/test/resources/testdata/invalid_users.json");
 	}
 
-	// 🟢 El motor reutilizable que lee cualquier JSON de usuarios
+	// Para leer el JSON
 	private Object[][] readJsonData(String filePath) throws IOException {
 		FileReader reader = new FileReader(filePath);
 		Type listType = new TypeToken<List<Map<String, String>>>() {
@@ -48,7 +48,6 @@ public class LoginTests extends BaseTest {
 
 	@Test(dataProvider = "userData")
 	public void test(String username, String password) {
-		// Flujo del test
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.login(username, password);
 		assertTrue(loginPage.isMenuButtonDisplayed());
@@ -58,18 +57,14 @@ public class LoginTests extends BaseTest {
 	public void testFailedLogin(String username, String password) {
 		LoginPage loginPage = new LoginPage(driver);
 
-		// Ejecutamos el flujo con credenciales incorrectas
+		// Ejecutar el flujo con credenciales incorrectas
 		loginPage.login(username, password);
 
-		// Asertar que el mensaje de error aparece en pantalla
+		// Assertion de que el mensaje de error aparece en pantalla
 		assertTrue(loginPage.isErrorMessageDisplayed(), "El mensaje de error no se mostró.");
 
-		// Opcional: Validar que el texto del error sea exactamente el que dice
-		// SauceLabs
 		String textoEsperado = "Epic sadface: Username and password do not match any user in this service";
-		// Si es el caso de campos vacíos, SauceLabs cambia el mensaje, por lo que
-		// puedes validar el texto general o solo que contenga "Epic sadface"
-		// assertTrue(loginPage.getErrorMessageText().contains("Epic sadface"));
+
 		assertEquals(loginPage.getErrorMessageText(), textoEsperado);
 	}
 }

@@ -12,27 +12,27 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Waits {
 	private final WebDriverWait wait;
 
-	// Constructor que recibe el WebDriver desde la página o base
+	// Constructor que recibe el driver y el tiempo de espera
 	public Waits(WebDriver driver) {
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(Config.DEFAULT_TIMEOUT)); 
 	}
 
-	// Esperar a que un elemento sea visible (usando By)
+	// Esperar a que un elemento sea visible usando localizador
 	public WebElement waitForElement(By locator) {
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
-	// Esperar a que un elemento sea visible (usando un WebElement ya localizado)
+	// Esperar a que un elemento sea visible usando WebElement
 	public WebElement waitForElement(WebElement element) {
 		return wait.until(ExpectedConditions.visibilityOf(element));
 	}
 
-	// Esperar a que un elemento sea clickeable (útil para botones y enlaces)
+	// Esperar a que un elemento sea cliqueable usando localizador
 	public WebElement waitForElementToBeClickable(By locator) {
 		return wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
 
-	// Esperar a que un elemento sea clickeable (usando WebElement)
+	// Esperar a que un elemento sea cliqueable usando WebElement
 	public WebElement waitForElementToBeClickable(WebElement element) {
 		return wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
@@ -47,7 +47,7 @@ public class Waits {
 		return wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
 	}
 
-	// Esperar a que un elemento desaparezca de la pantalla (ej. loaders, spinners)
+	// Esperar a que un elemento desaparezca de la pantalla
 	public boolean waitForInvisibility(By locator) {
 		return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
 	}
