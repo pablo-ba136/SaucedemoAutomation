@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -74,6 +75,12 @@ public class ProductsTests extends BaseTest {
 		Collections.sort(expectedNames, Collections.reverseOrder());
 
 		assertEquals(actualNames, expectedNames, "Los productos no están ordenados alfabéticamente de forma inversa");
+	}
+
+	@Test
+	public void productsDataDisplayed() {
+
+		Assert.assertTrue(productsPage.allProductsHaveData());
 	}
 
 }
