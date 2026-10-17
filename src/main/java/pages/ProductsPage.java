@@ -13,9 +13,12 @@ import base.BasePage;
 public class ProductsPage extends BasePage {
 	// Locators de ejemplo para SauceDemo
 	private By backpackAddButton = By.id("add-to-cart-sauce-labs-backpack");
+	private By bikeLightAddButton = By.id("add-to-cart-sauce-labs-bike-light");
 	private By cartIcon = By.className("shopping_cart_link");
 	private By cartBadge = By.className("shopping_cart_badge");
 	private By backpackRemoveButton = By.id("remove-sauce-labs-backpack");
+
+	private By addButtons = By.cssSelector("[id^='add-to-cart']");
 
 	private By sortDropdownList = By.cssSelector("select[data-test='product-sort-container']");
 	private By itemPrices = By.className("inventory_item_price");
@@ -30,6 +33,27 @@ public class ProductsPage extends BasePage {
 	public void addBackpackToCart() {
 		click(backpackAddButton);
 	}
+
+	public void addBikeLightToCart() {
+		click(bikeLightAddButton);
+	}
+
+	// Método para añadir todos los productos al carrito.
+	public void addProductsToCart() {
+		int totalProductos = findElements(addButtons).size();
+
+		for (int i = 0; i < totalProductos; i++) {
+
+			// Volvemos a buscar ya que el que acabamos de clicar no aparecerá (Se cambia
+			// por un botón remove)
+			List<WebElement> buttons = findElements(addButtons);
+
+			// Clicamos siempre el primero de los que quedan por añadir
+			buttons.get(0).click();
+		}
+	}
+
+	
 
 	public boolean isbackpackRemoveButtonButtonDisplayed() {
 		return isDisplayed(backpackRemoveButton);

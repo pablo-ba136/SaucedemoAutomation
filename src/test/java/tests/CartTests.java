@@ -3,6 +3,9 @@ package tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
+
+import java.util.List;
+
 import base.BaseTest;
 import pages.LoginPage;
 import pages.ProductsPage;
@@ -34,9 +37,10 @@ public class CartTests extends BaseTest {
 		 * if (productsPage.isbackpackRemoveButtonButtonDisplayed()) {
 		 * productsPage.removeBackpackToCart(); }
 		 */
-		// Añadimos un producto y validamos contador del carrito
+		// Añadimos dos productos y validamos contador del carrito
 		productsPage.addBackpackToCart();
-		assertEquals(productsPage.getCartItemsCount(), "1", "El contador del carrito no se actualizó.");
+		productsPage.addBikeLightToCart();
+		assertEquals(productsPage.getCartItemsCount(), "2", "El contador del carrito no se actualizó.");
 
 	}
 
@@ -57,6 +61,21 @@ public class CartTests extends BaseTest {
 		String productoEsperado = "Sauce Labs Backpack";
 		assertEquals(cartPage.getFirstItemName(), productoEsperado, "El producto en el carrito no es el correcto.");
 
+	}
+	
+	@Test
+	public void addProducts() {
+	    // Capturamos los nombres de todos los productos del inventario de la página de productos.
+	    List<String> expectedNames = productsPage.getNames(); 
+
+	    // Añadimos todos los productos del inventario al carrito
+	    productsPage.addProductsToCart();
+
+	    CartPage cartPage = productsPage.goToCart();
+
+	    // Capturamos los nombres de los productos que se encuentran en el carrito.
+	    List<String> actualNames = cartPage.getNames();
+	    assertEquals(actualNames, expectedNames, "Los nombres de los productos en el carrito no coinciden con los de la tienda");
 	}
 
 }
