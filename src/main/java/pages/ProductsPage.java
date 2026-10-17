@@ -43,10 +43,10 @@ public class ProductsPage extends BasePage {
 		return getText(cartBadge);
 	}
 
-	// 🟢 Al hacer clic en el carrito, navegamos a otra página diferente
+	// Navegamos al carrito
 	public CartPage goToCart() {
 		click(cartIcon);
-		return new CartPage(driver); // Fluent interface hacia la página del carrito
+		return new CartPage(driver);
 	}
 
 	/*

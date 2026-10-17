@@ -1,5 +1,6 @@
 package tests;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import base.BaseTest;
@@ -12,28 +13,47 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class CartTests extends BaseTest {
-	@Test
-	public void test() {
-		// 1. Iniciamos en la LoginPage 
+
+	private ProductsPage productsPage;
+
+	@BeforeMethod
+	public void loginSetup() {
+		// Iniciamos en la LoginPage (BaseTest ya abrió la URL en el setup)
 		LoginPage loginPage = new LoginPage(driver);
 
-		// 2. Nos logueamos y obtenemos automáticamente el acceso a la pantalla del
+		// Nos logueamos y obtenemos automáticamente el acceso a la pantalla del
 		// catálogo
-		ProductsPage productsPage = loginPage.login(Config.VALID_USER, Config.VALID_PASSWORD);
 
-		// 3. Borramos el producto que haya en el carrito
+		productsPage = loginPage.login(Config.VALID_USER, Config.VALID_PASSWORD);
+	}
 
-		/*if (productsPage.isbackpackRemoveButtonButtonDisplayed()) {
-			productsPage.removeBackpackToCart();
-		}*/
-		// 3. Añadimos un producto e interactuamos con el catálogo
+	@Test
+	public void cartCounter() {
+
+		/*
+		 * if (productsPage.isbackpackRemoveButtonButtonDisplayed()) {
+		 * productsPage.removeBackpackToCart(); }
+		 */
+		// Añadimos un producto y validamos contador del carrito
 		productsPage.addBackpackToCart();
 		assertEquals(productsPage.getCartItemsCount(), "1", "El contador del carrito no se actualizó.");
 
-		// 4. Viajamos al carrito de compras
+	}
+
+	@Test
+	public void addProduct() {
+
+		/*
+		 * if (productsPage.isbackpackRemoveButtonButtonDisplayed()) {
+		 * productsPage.removeBackpackToCart(); }
+		 */
+		// Añadimos un producto
+		productsPage.addBackpackToCart();
+
+		// Viajamos al carrito de compras
 		CartPage cartPage = productsPage.goToCart();
 
-		// 5. Validamos el assertion final del carrito
+		// Validamos que se ha añadido el producto
 		String productoEsperado = "Sauce Labs Backpack";
 		assertEquals(cartPage.getFirstItemName(), productoEsperado, "El producto en el carrito no es el correcto.");
 
