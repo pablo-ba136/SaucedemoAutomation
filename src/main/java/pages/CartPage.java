@@ -9,9 +9,11 @@ import org.openqa.selenium.WebElement;
 
 import base.BasePage;
 
-public class CartPage extends BasePage{
+public class CartPage extends BasePage {
 
 	private By cartItemNames = By.className("inventory_item_name");
+	private By backpackRemoveButton = By.id("remove-sauce-labs-backpack");
+	private By cartBadge = By.className("shopping_cart_badge");
 
 	public CartPage(WebDriver driver) {
 		super(driver);
@@ -20,7 +22,15 @@ public class CartPage extends BasePage{
 	public String getFirstItemName() {
 		return getText(cartItemNames);
 	}
-	
+
+	public void removeBackpackToCart() {
+		click(backpackRemoveButton);
+	}
+
+	public String getCartItemsCount() {
+		return getText(cartBadge);
+	}
+
 	// Devuelve los nombres de todos los items en una lista
 	public List<String> getNames() {
 		List<String> names = new ArrayList<>();
