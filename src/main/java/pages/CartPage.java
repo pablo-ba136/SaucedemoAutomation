@@ -14,6 +14,7 @@ public class CartPage extends BasePage {
 	private By cartItemNames = By.className("inventory_item_name");
 	private By backpackRemoveButton = By.id("remove-sauce-labs-backpack");
 	private By cartBadge = By.className("shopping_cart_badge");
+	private By checkoutButton = By.id("checkout");
 
 	public CartPage(WebDriver driver) {
 		super(driver);
@@ -40,6 +41,12 @@ public class CartPage extends BasePage {
 		}
 
 		return names;
+	}
+	
+	// Navegamos al carrito
+	public CheckoutStepOnePage goToCheckout() {
+		click(checkoutButton);
+		return new CheckoutStepOnePage(driver);
 	}
 
 }
