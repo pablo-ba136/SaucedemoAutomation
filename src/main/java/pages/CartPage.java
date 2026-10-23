@@ -44,7 +44,7 @@ public class CartPage extends BasePage {
 	}
 	
 	// Navegamos al carrito
-	public CheckoutStepOnePage goToCheckout() {
+	public CheckoutStepOnePage goToCheckoutStepOne() {
 		click(checkoutButton);
 		return new CheckoutStepOnePage(driver);
 	}

@@ -31,7 +31,7 @@ public class CheckoutStepOnePage extends BasePage{
 	}
 	
 	// Navegamos a la segunda pantalla del checkout
-	public CheckoutStepTwoPage goToCheckout() {
+	public CheckoutStepTwoPage goToCheckoutStepTwo() {
 		click(continueButton);
 		return new CheckoutStepTwoPage(driver);
 	}
